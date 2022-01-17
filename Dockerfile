@@ -78,7 +78,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # The Xilinx toolchain version
-ARG XILVER=2018.3
+ARG XILVER=2019.1
 
 # The PetaLinux base. We expect ${PETALINUX_BASE}-installer.run to be the patched installer.
 # PetaLinux will be installed in /opt/${PETALINX_BASE}
@@ -122,13 +122,15 @@ ARG XXXX_XXXX=1207_2324
 
 # Install Vivado
 # Files are expected in the "./resources" subdirectory
+#ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.zip
 ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.tar.gz
-ENV XLNX_VIVADO_BATCH_CONFIG_FILE=install_config.txt
+ENV XLNX_VIVADO_BATCH_CONFIG_FILE=install_config_2019.txt
 RUN mkdir -p /opt/Xilinx/tmp \
   && cd /opt/Xilinx/tmp \
   && wget -q ${HTTP_SERV}/$XLNX_VIVADO_BATCH_CONFIG_FILE \
   && wget -q ${HTTP_SERV}/$XLNX_VIVADO_OFFLINE_INSTALLER \
   && cat $XLNX_VIVADO_BATCH_CONFIG_FILE \
+  # && unzip $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
   && tar -zxf $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
   && mv $XLNX_VIVADO_BATCH_CONFIG_FILE Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}/ \
   && cd Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX} \

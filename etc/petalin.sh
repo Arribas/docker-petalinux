@@ -4,7 +4,8 @@
 #
 # Run from a PetaLinux project directory
 
-latest=$(docker image list | grep ^petalinux | awk '{ print $2 }' | sort | tail -1)
+#latest=$(docker image list | grep ^petalinux | awk '{ print $2 }' | sort | tail -1)
+latest="2019.1"
 echo "Starting petalinux:$latest"
 mkdir -p $PWD/tftpboot
 
