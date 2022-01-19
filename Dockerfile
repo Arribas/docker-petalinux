@@ -58,6 +58,14 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   xvfb \
   zlib1g-dev \
   zlib1g-dev:i386 \
+  ccache \
+  device-tree-compiler \
+  mtools \ 
+  libssl-dev \
+  u-boot-tools \
+  dfu-util \
+  file \
+  bc
   && update-alternatives --install /usr/bin/python python /usr/bin/python2.7 2 \
   && add-apt-repository ppa:deadsnakes/ppa && apt update \
   && apt-get install -y python3.6 && update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 \

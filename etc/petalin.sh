@@ -7,7 +7,7 @@
 #latest=$(docker image list | grep ^petalinux | awk '{ print $2 }' | sort | tail -1)
 latest="2019.1"
 echo "Starting petalinux:$latest"
-mkdir -p $PWD/tftpboot
+#mkdir -p $PWD/tftpboot
 
 SET_MIRROR_PATH=""
 if [ $GENIUX_MIRROR_PATH ]
@@ -31,7 +31,8 @@ if [ "$SET_DOCKER_COMMAND" ]
         SET_DOCKER_COMMAND="-l -c ./command.sh"
 fi
 
-docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  -v "$PWD":"$PWD" -v "$PWD/tftpboot":/tftpboot -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
+#docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  -v "$PWD":"$PWD" -v "$PWD/tftpboot":/tftpboot -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
+docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  -v "$PWD":"$PWD" -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
 
 if [ "$SET_DOCKER_COMMAND" ]
     then
