@@ -32,7 +32,7 @@ if [ "$SET_DOCKER_COMMAND" ]
 fi
 
 #docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  -v "$PWD":"$PWD" -v "$PWD/tftpboot":/tftpboot -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
-docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  -v "$PWD":"$PWD" -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
+docker run -ti $SET_X_SERVER $SET_MIRROR_PATH  --privileged -v /dev/bus/usb:/dev/bus/usb -v "$PWD":"$PWD" -w "$PWD" --rm -u petalinux $OVERRIDE_ENTRYPOINT petalinux:$latest $SET_DOCKER_COMMAND
 
 if [ "$SET_DOCKER_COMMAND" ]
     then
