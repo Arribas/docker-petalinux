@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2020, Carles Fernandez-Prades <carles.fernandez@cttc.es>
 # SPDX-License-Identifier: MIT
 
-FROM ubuntu:16.04
-LABEL version="1.0" description="PetaLinux and Vivado image" maintainer="carles.fernandez@cttc.es"
+FROM ubuntu:18.04
+LABEL version="2.0" description="PetaLinux and Vivado image" maintainer="carles.fernandez@cttc.es"
 
 RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   autoconf \
@@ -16,7 +16,7 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   fakeroot \
   flex \
   gawk \
-  gcc-4.8 \
+  gcc-7 \
   gcc-multilib \
   git \
   gnupg \
@@ -39,7 +39,7 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   net-tools \
   pax \
   python3-gi \
-  python3.4 \
+  python3.6 \
   rsync \
   screen \
   socat \
@@ -60,7 +60,7 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   zlib1g-dev:i386 \
   ccache \
   device-tree-compiler \
-  mtools \ 
+  mtools \
   libssl-dev \
   u-boot-tools \
   dfu-util \
@@ -68,10 +68,8 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   bc \
   zip \
   fxload \
-  usbutils
-  && update-alternatives --install /usr/bin/python python /usr/bin/python2.7 2 \
-  && add-apt-repository ppa:deadsnakes/ppa && apt update \
-  && apt-get install -y python3.6 && update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 \
+  usbutils \
+  && update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 \
   && apt-get autoremove --purge && apt-get autoclean && update-alternatives --auto python
 
 # Install the repo tool to handle git submodules (meta layers) comfortably.
@@ -133,16 +131,16 @@ ARG XXXX_XXXX=1207_2324
 
 # Install Vivado
 # Files are expected in the "./resources" subdirectory
-#ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.zip
-ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.tar.gz
+ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.zip
+#ENV XLNX_VIVADO_OFFLINE_INSTALLER=Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}.tar.gz
 ENV XLNX_VIVADO_BATCH_CONFIG_FILE=install_config_2019.txt
 RUN mkdir -p /opt/Xilinx/tmp \
   && cd /opt/Xilinx/tmp \
   && wget -q ${HTTP_SERV}/$XLNX_VIVADO_BATCH_CONFIG_FILE \
   && wget -q ${HTTP_SERV}/$XLNX_VIVADO_OFFLINE_INSTALLER \
   && cat $XLNX_VIVADO_BATCH_CONFIG_FILE \
-  # && unzip $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
-  && tar -zxf $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
+  && unzip $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
+  # && tar -zxf $XLNX_VIVADO_OFFLINE_INSTALLER && ls -al \
   && mv $XLNX_VIVADO_BATCH_CONFIG_FILE Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX}/ \
   && cd Xilinx_Vivado_SDK_${XILVER}_${XXXX_XXXX} \
   && chmod a+x xsetup \
