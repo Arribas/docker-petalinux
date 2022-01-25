@@ -69,6 +69,7 @@ RUN dpkg --add-architecture i386 && apt-get update && DEBIAN_FRONTEND=noninterac
   zip \
   fxload \
   usbutils \
+  libcanberra-gtk-module \
   && update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1 \
   && apt-get autoremove --purge && apt-get autoclean && update-alternatives --auto python
 
